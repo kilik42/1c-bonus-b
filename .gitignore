@@ -1,0 +1,57 @@
+# ==============================
+# Terraform
+# ==============================
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+terraform.tfstate.backup
+crash*.log
+*.tfvars
+*.tfvars.json
+terraform.lock.hcl
+
+# ==============================
+# AWS credentials
+# ==============================
+.aws/
+credentials
+config
+
+# ==============================
+# Environment files
+# ==============================
+.env
+.env.*
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.virtualenv/
+*.egg
+*.egg-info/
+dist/
+build/
+
+# ==============================
+# IDE / OS
+# ==============================
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Logs / temp
+# ==============================
+logs/
+*.log
+tmp/
+temp/
+*.tmp
