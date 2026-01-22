@@ -1,7 +1,7 @@
 # CloudWatch alarm (ALB 5xx)
 
-resource "aws_cloudwatch_metric_alarm" "chewbacca_alb_5xx_alarm" {
-  alarm_name          = "chewbacca-alb-5xx"
+resource "aws_cloudwatch_metric_alarm" "app_alb_5xx_alarm" {
+  alarm_name          = "tetsuzai-alb-5xx"
   alarm_description   = "Alarm when ALB 5xx errors spike"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
@@ -12,9 +12,9 @@ resource "aws_cloudwatch_metric_alarm" "chewbacca_alb_5xx_alarm" {
   threshold           = 5
 
   dimensions = {
-    LoadBalancer = aws_lb.chewbacca_alb.arn_suffix
+    LoadBalancer = aws_lb.app_alb.arn_suffix
   }
 
-  alarm_actions = [aws_sns_topic.chewbacca_sns_topic01.arn]
+  alarm_actions = [aws_sns_topic.app_sns_topic01.arn]
 }
 

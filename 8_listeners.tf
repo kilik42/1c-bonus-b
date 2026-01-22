@@ -4,8 +4,9 @@
 # Create HTTP listener on port 80 that redirects to HTTPS
 # we need to create listeners for our ALB to handle incoming traffic
 
-resource "aws_lb_listener" "chewbacca_http_listener" {
-  load_balancer_arn = aws_lb.chewbacca_alb.arn
+# HTTP listener: redirect all traffic to HTTPS
+resource "aws_lb_listener" "app_http_listener" {
+  load_balancer_arn = aws_lb.app_alb.arn
   port              = 80
   protocol          = "HTTP"
 
@@ -20,15 +21,16 @@ resource "aws_lb_listener" "chewbacca_http_listener" {
   }
 }
 
-resource "aws_lb_listener" "chewbacca_https_listener" {
-  load_balancer_arn = aws_lb.chewbacca_alb.arn
+# HTTPS listener: terminate TLS and forward to target group
+resource "aws_lb_listener" "app_https_listener" {
+  load_balancer_arn = aws_lb.app_alb.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = aws_acm_certificate_validation.chewbacca_cert_validation_complete.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.app_cert_validation_complete.certificate_arn
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.chewbacca_tg.arn
+    target_group_arn = aws_lb_target_group.app_tg.arn
   }
 }

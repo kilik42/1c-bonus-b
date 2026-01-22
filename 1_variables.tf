@@ -1,23 +1,29 @@
-variable "chewbacca_domain_name" {
-  type    = string
-  default = "chewbacca-growl.com"
+variable "domain_name" {
+  description = "Root domain for the application"
+  type        = string
+  default     = "tetsuzai-kube.com"
 }
 
-variable "chewbacca_app_subdomain" {
-  type    = string
-  default = "app"
+variable "app_subdomain" {
+  description = "Subdomain for the application endpoint"
+  type        = string
+  default     = "app"
 }
 
-variable "chewbacca_app_port" {
-  type    = number
-  default = 80
+variable "app_port" {
+  description = "Port the application listens on"
+  type        = number
+  default     = 80
 }
 
 variable "aws_region" {
-  type    = string
-  default = "us-west-2"
+  description = "AWS region for all resources"
+  type        = string
+  default     = "us-west-2"
 }
+
 variable "instance_type" {
-  type    = string
-  default = "t3.micro"
+  description = "EC2 instance type for the application"
+  type        = string
+  default     = "t3.micro"
 }

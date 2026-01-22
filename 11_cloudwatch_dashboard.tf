@@ -5,8 +5,8 @@
 # It includes widgets for 5xx errors and request count
 
 
-resource "aws_cloudwatch_dashboard" "chewbacca_dashboard" {
-  dashboard_name = "chewbacca-alb-dashboard"
+resource "aws_cloudwatch_dashboard" "app_dashboard" {
+  dashboard_name = "tetsuzai-alb-dashboard"
 
   dashboard_body = jsonencode({
     widgets = [
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_dashboard" "chewbacca_dashboard" {
           title   = "ALB 5xx Errors"
           region  = var.aws_region
           metrics = [
-            ["AWS/ApplicationELB", "HTTPCode_ELB_5XX_Count", "LoadBalancer", aws_lb.chewbacca_alb.arn_suffix]
+            ["AWS/ApplicationELB", "HTTPCode_ELB_5XX_Count", "LoadBalancer", aws_lb.app_alb.arn_suffix]
           ]
           period = 60
           stat   = "Sum"
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_dashboard" "chewbacca_dashboard" {
           title   = "ALB Request Count"
           region  = var.aws_region
           metrics = [
-            ["AWS/ApplicationELB", "RequestCount", "LoadBalancer", aws_lb.chewbacca_alb.arn_suffix]
+            ["AWS/ApplicationELB", "RequestCount", "LoadBalancer", aws_lb.app_alb.arn_suffix]
           ]
           period = 60
           stat   = "Sum"
