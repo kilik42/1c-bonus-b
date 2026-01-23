@@ -2,27 +2,20 @@
 #local values for existing Chewbacca infrastructure
 
 data "aws_vpc" "tetsuzai" {
-  filter {
-    name   = "tag:Name"
-    values = ["tetsuzai-vpc"]
-  }
+  id = "vpc-0b8869d887c22c27e"
 }
 
-# data "aws_subnet_ids" "public" {
-#   vpc_id = local.vpc_id
-#   tags = {
-#     Tier = "public"
-#   }
-# }
 locals {
-  vpc_id          = "vpc-0b8869d887c22c27e"
+  vpc_id = data.aws_vpc.tetsuzai.id
+
   # public_subnets  = ["subnet-0b042ad35f85ea27", "subnet-03473bd995f5f8931"]
   public_subnets = [
     aws_subnet.public_a.id,
     aws_subnet.public_b.id
   ]
-  ec2_instance_id = "i-0891580f67c9ee103"
-  ec2_sg_id       = "sg-0390ed8e3fd37f1f2"
+  ec2_instance_id = "i-0891580f6c79ee103"
+
+  ec2_sg_id       = "sg-039e85c2905b2f3ad"
 
 }
 
@@ -33,3 +26,5 @@ resource "null_resource" "validate_subnets" {
     command = "echo 'ERROR: No public subnets found. Check your tags.' && exit 1"
   }
 }
+
+
