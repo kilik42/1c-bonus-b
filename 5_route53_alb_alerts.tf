@@ -3,7 +3,7 @@ resource "aws_route53_zone" "app_zone" {
   name = var.domain_name
 }
 
-# ACM certificate for app.<domain>
+# ACM certificate for app, validated via DNS
 resource "aws_acm_certificate" "app_cert" {
   domain_name       = "${var.app_subdomain}.${var.domain_name}"
   validation_method = "DNS"
@@ -24,11 +24,16 @@ resource "aws_route53_record" "app_cert_validation" {
     }
   }
 
-  zone_id = aws_route53_zone.app_zone.zone_id
-  name    = each.value.name
-  type    = each.value.type
+  # zone_id = aws_route53_zone.app_zone.zone_id
+  # name    = each.value.name
+  # type    = each.value.type
+  # ttl     = 60
+  # records = [each.value.record]
+  name    = aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_name
+  type    = aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_type
+  zone_id = "Z0706221214QE8EFTLZCU" # <- Use the active zone ID
+  records = [aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_value]
   ttl     = 60
-  records = [each.value.record]
 }
 
 # ACM waits until DNS validation succeeds
