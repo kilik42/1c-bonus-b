@@ -29,11 +29,13 @@ resource "aws_route53_record" "app_cert_validation" {
   # type    = each.value.type
   # ttl     = 60
   # records = [each.value.record]
-  name    = aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_name
-  type    = aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_type
+  name    = tolist(aws_acm_certificate.app_cert.domain_validation_options)[0].resource_record_name
+  type    = tolist(aws_acm_certificate.app_cert.domain_validation_options)[0].resource_record_type
+  records = [tolist(aws_acm_certificate.app_cert.domain_validation_options)[0].resource_record_value]
+
   zone_id = "Z0706221214QE8EFTLZCU" # <- Use the active zone ID
-  records = [aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_value]
-  ttl     = 60
+  # records = [aws_acm_certificate.app_cert.domain_validation_options[0].resource_record_value]
+  ttl = 60
 }
 
 # ACM waits until DNS validation succeeds

@@ -8,12 +8,12 @@ data "aws_vpc" "tetsuzai" {
   }
 }
 
-data "aws_subnet_ids" "public" {
-  vpc_id = local.vpc_id
-  tags = {
-    Tier = "public"
-  }
-}
+# data "aws_subnet_ids" "public" {
+#   vpc_id = local.vpc_id
+#   tags = {
+#     Tier = "public"
+#   }
+# }
 locals {
   vpc_id          = "vpc-0b8869d887c22c27e"
   # public_subnets  = ["subnet-0b042ad35f85ea27", "subnet-03473bd995f5f8931"]
