@@ -1,6 +1,6 @@
 # Route53 ALIAS record pointing to the ALB
 resource "aws_route53_record" "app_alias" {
-  zone_id = aws_route53_zone.app_zone.zone_id
+  zone_id = data.aws_route53_zone.app_zone.zone_id
   name    = "${var.app_subdomain}.${var.domain_name}"
   type    = "A"
 

@@ -1,8 +1,9 @@
 # Public hosted zone for your domain
 # Assumes the domain is already registered and managed in Route 53
 #This tells Route 53:“Host DNS for my domain (like example.com).”
-resource "aws_route53_zone" "app_zone" {
-  name = var.domain_name
+data "aws_route53_zone" "app_zone" {
+  name         = var.domain_name
+  private_zone = false
 }
 
 # ACM certificate for app, validated via DNS
@@ -25,7 +26,7 @@ resource "aws_acm_certificate" "app_cert" {
 
 # This is the magic that avoids copy‑pasting DNS records manually.
 resource "aws_route53_record" "app_cert_validation" {
-  for_each = {
+   for_each = {
     for dvo in aws_acm_certificate.app_cert.domain_validation_options :
     dvo.domain_name => {
       name   = dvo.resource_record_name
@@ -34,11 +35,11 @@ resource "aws_route53_record" "app_cert_validation" {
     }
   }
 
-  zone_id = aws_route53_zone.app_zone.zone_id
   name    = each.value.name
   type    = each.value.type
-  ttl     = 60
+  zone_id = data.aws_route53_zone.app_zone.zone_id
   records = [each.value.record]
+  ttl     = 300
 }
 
 
