@@ -2,9 +2,12 @@
 locals {
   app_fqdn = "${var.app_subdomain}.${var.domain_name}"
 
+#   manage_route53_in_terraform = false
+#   route53_hosted_zone_id      = "Z0706221214QE8EFTLZCU"
+
   # If Terraform manages the hosted zone → use resource
   # If not → use provided hosted zone ID
-  zone_id  = var.manage_route53_in_terraform ? aws_route53_zone.main_zone[0].id : var.route53_hosted_zone_id
+  zone_id = var.route53_hosted_zone_id
 
 }
 
@@ -48,13 +51,18 @@ resource "aws_route53_record" "app_cert_dns_records" {
   type    = each.value.type
   ttl     = 300
   records = [each.value.record]
+  allow_overwrite = true
+
+    depends_on = [
+    aws_acm_certificate.app_cert
+  ]
 }
 
 
 # Certificate validation completion
 
 resource "aws_acm_certificate_validation" "app_cert_validation" {
-  certificate_arn         = aws_acm_certificate.app_cert.arn
+  certificate_arn = aws_acm_certificate.app_cert.arn
   validation_record_fqdns = [
     for r in aws_route53_record.app_cert_dns_records : r.fqdn
   ]
