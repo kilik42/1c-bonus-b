@@ -27,3 +27,24 @@ variable "instance_type" {
   type        = string
   default     = "t3.micro"
 }
+
+# Variable to control whether to create/manage Route53 hosted zone and records in Terraform
+variable "manage_route53_in_terraform" {
+  description = "If true, create/manage Route53 hosted zone + records in Terraform."
+  type        = bool
+  default     = true
+}
+
+# Variable to provide existing Route53 hosted zone ID if not managing in Terraform
+variable "route53_hosted_zone_id" {
+  description = "If manage_route53_in_terraform=false, provide existing Hosted Zone ID for domain."
+  type        = string
+  default     = ""
+}
+
+# Variable to provide existing ACM certificate ARN if not creating in Terraform
+variable "certificate_arn" {
+  description = "ARN of the ACM certificate for the domain"
+  type        = string
+  default     = ""
+}

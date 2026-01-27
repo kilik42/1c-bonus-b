@@ -22,15 +22,35 @@ resource "aws_lb_listener" "app_http_listener" {
 }
 
 # HTTPS listener: terminate TLS and forward to target group
+# resource "aws_lb_listener" "app_https_listener" {
+#   load_balancer_arn = aws_lb.app_alb.arn
+#   port              = 443
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"
+#   certificate_arn   = aws_acm_certificate_validation.app_cert_validation_complete.certificate_arn
+
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.app_tg.arn
+#   }
+# }
+
+# Updated HTTPS listener with TLS 1.3 support
+
+# HTTPS listener: terminate TLS and forward to target group
 resource "aws_lb_listener" "app_https_listener" {
   load_balancer_arn = aws_lb.app_alb.arn
   port              = 443
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = aws_acm_certificate_validation.app_cert_validation_complete.certificate_arn
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = aws_acm_certificate.app_cert.arn
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_tg.arn
   }
+
+  depends_on = [
+    aws_acm_certificate_validation.app_cert_validation
+  ]
 }
