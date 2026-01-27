@@ -4,9 +4,8 @@ locals {
 
   # If Terraform manages the hosted zone → use resource
   # If not → use provided hosted zone ID
-  zone_id = var.manage_route53_in_terraform ?
-    aws_rouDte53_zone.main_zone[0].zone_id :
-    var.route53_hosted_zone_id
+  zone_id  = var.manage_route53_in_terraform ? aws_route53_zone.main_zone[0].id : var.route53_hosted_zone_id
+
 }
 
 ############################################

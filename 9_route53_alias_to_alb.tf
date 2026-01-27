@@ -1,15 +1,15 @@
 # Route53 ALIAS record pointing to the ALB
-resource "aws_route53_record" "app_alias" {
-  zone_id = data.aws_route53_zone.app_zone.zone_id
-  name    = "${var.app_subdomain}.${var.domain_name}"
-  type    = "A"
+# resource "aws_route53_record" "app_alias" {
+#   zone_id = data.aws_route53_zone.app_zone.zone_id
+#   name    = "${var.app_subdomain}.${var.domain_name}"
+#   type    = "A"
 
-  alias {
-    name                   = aws_lb.app_alb.dns_name
-    zone_id                = aws_lb.app_alb.zone_id
-    evaluate_target_health = true
-  }
-}
+#   alias {
+#     name                   = aws_lb.app_alb.dns_name
+#     zone_id                = aws_lb.app_alb.zone_id
+#     evaluate_target_health = true
+#   }
+# }
 
 # WAFv2 Web ACL for the ALB
 resource "aws_wafv2_web_acl" "app_waf" {

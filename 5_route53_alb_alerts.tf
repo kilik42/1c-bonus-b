@@ -9,14 +9,14 @@ data "aws_route53_zone" "app_zone" {
 # ACM certificate for app, validated via DNS
 # This says:
 # “AWS, please create an SSL certificate for app.example.com, and I’ll prove ownership using DNS.”
-resource "aws_acm_certificate" "app_cert" {
-  domain_name       = "${var.app_subdomain}.${var.domain_name}"
-  validation_method = "DNS"
+# resource "aws_acm_certificate" "app_cert" {
+#   domain_name       = "${var.app_subdomain}.${var.domain_name}"
+#   validation_method = "DNS"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#   lifecycle {
+#     create_before_destroy = true
+#   }
+# }
 
 # DNS validation record for ACM
 # This part says:
