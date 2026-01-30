@@ -65,3 +65,14 @@ variable "alb_access_logs_prefix" {
 }
 
 
+variable "private_subnet_id" {
+  default = "subnet-06894d8fa681dab3d"
+}
+
+variable "app_sg_id" {
+  default =  "sg-039e85c2905b2f3ad"
+
+}
+variable "ssm_instance_profile" {
+  default = "AWSCloud9SSMInstanceProfile"
+}
