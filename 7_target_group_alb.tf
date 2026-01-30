@@ -36,6 +36,12 @@ resource "aws_lb" "app_alb" {
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = local.public_subnets
 
+  # Enable access logging if specified
+  access_logs {
+    bucket  = aws_s3_bucket.alb_logs[0].bucket
+    prefix  = var.alb_access_logs_prefix
+    enabled = var.enable_alb_access_logs
+  }
   tags = {
     Name = "tetsuzai-alb01"
   }

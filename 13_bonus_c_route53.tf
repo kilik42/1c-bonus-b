@@ -20,6 +20,21 @@ resource "aws_route53_zone" "main_zone" {
   name  = var.domain_name
 }
 
+# ALIAS record: apex domain → ALB
+# I need this so that users can access the app using "tetsuzai-kube.com" (without "app" subdomain)
+# in other words, this creates an ALIAS record for the apex domain pointing to the ALB
+resource "aws_route53_record" "apex_alias" {
+  zone_id = local.zone_id
+  name    = var.domain_name        # "tetsuzai-kube.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.app_alb.dns_name
+    zone_id                = aws_lb.app_alb.zone_id
+    evaluate_target_health = true
+  }
+}
+
 
 # ACM Certificate (DNS validation)
 

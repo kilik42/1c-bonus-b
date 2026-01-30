@@ -48,3 +48,20 @@ variable "certificate_arn" {
   type        = string
   default     = ""
 }
+
+## adding logging variables
+# Variable to enable/disable ALB access logging
+variable "enable_alb_access_logs" {
+  description = "Enable ALB access logging to S3."
+  type        = bool
+  default     = true
+}
+
+# Variable for S3 bucket prefix for ALB access logs
+variable "alb_access_logs_prefix" {
+  description = "S3 prefix for ALB access logs."
+  type        = string
+  default     = "alb-access-logs"
+}
+
+
