@@ -2,8 +2,8 @@
 locals {
   app_fqdn = "${var.app_subdomain}.${var.domain_name}"
 
-#   manage_route53_in_terraform = false
-#   route53_hosted_zone_id      = "Z0706221214QE8EFTLZCU"
+  #   manage_route53_in_terraform = false
+  #   route53_hosted_zone_id      = "Z0706221214QE8EFTLZCU"
 
   # If Terraform manages the hosted zone → use resource
   # If not → use provided hosted zone ID
@@ -25,7 +25,7 @@ resource "aws_route53_zone" "main_zone" {
 # in other words, this creates an ALIAS record for the apex domain pointing to the ALB
 resource "aws_route53_record" "apex_alias" {
   zone_id = local.zone_id
-  name    = var.domain_name        # "tetsuzai-kube.com"
+  name    = var.domain_name # "tetsuzai-kube.com"
   type    = "A"
 
   alias {
@@ -40,7 +40,12 @@ resource "aws_route53_record" "apex_alias" {
 
 
 resource "aws_acm_certificate" "app_cert" {
-  domain_name       = local.app_fqdn
+  domain_name = var.domain_name # apex: tetsuzai-kube.com
+
+  subject_alternative_names = [
+    "${var.app_subdomain}.${var.domain_name}" # app.tetsuzai-kube.com
+  ]
+
   validation_method = "DNS"
 
   lifecycle {
@@ -61,14 +66,14 @@ resource "aws_route53_record" "app_cert_dns_records" {
     }
   }
 
-  zone_id = local.zone_id
-  name    = each.value.name
-  type    = each.value.type
-  ttl     = 300
-  records = [each.value.record]
+  zone_id         = local.zone_id
+  name            = each.value.name
+  type            = each.value.type
+  ttl             = 300
+  records         = [each.value.record]
   allow_overwrite = true
 
-    depends_on = [
+  depends_on = [
     aws_acm_certificate.app_cert
   ]
 }
@@ -97,3 +102,5 @@ resource "aws_route53_record" "app_alias" {
     evaluate_target_health = true
   }
 }
+
+

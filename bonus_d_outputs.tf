@@ -21,5 +21,5 @@ output "alb_sg_id" {
 #   --query "TargetGroups[0].TargetGroupArn" \
 #   --output text
 
- aws elbv2 describe-target-health \
-  --target-group-arn arn:aws:elasticloadbalancing:us-west-2:129762072419:targetgroup/tetsuzai-tg01/5acfc0cd4ea255bf
+#  aws elbv2 describe-target-health \
+#   --target-group-arn arn:aws:elasticloadbalancing:us-west-2:129762072419:targetgroup/tetsuzai-tg01/5acfc0cd4ea255bf
