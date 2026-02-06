@@ -13,9 +13,10 @@ locals {
     aws_subnet.public_a.id,
     aws_subnet.public_b.id
   ]
-  ec2_instance_id = "i-0891580f6c79ee103"
+  ec2_instance_id = aws_instance.tetsuzai_app.id
 
-  ec2_sg_id       = "sg-039e85c2905b2f3ad"
+ ec2_sg_id = aws_security_group.ec2_sg.id
+
 
 }
 

@@ -52,3 +52,27 @@ resource "aws_subnet" "public_b" {
     Tier = "public"
   }
 }
+
+resource "aws_subnet" "private_a" {
+  vpc_id                  = data.aws_vpc.tetsuzai.id
+  cidr_block              = "10.0.128.0/20"
+  availability_zone       = "us-west-2a"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "tetsuzai-private-subnet-us-west-2a"
+    Tier = "private"
+  }
+}
+
+resource "aws_subnet" "private_b" {
+  vpc_id                  = data.aws_vpc.tetsuzai.id
+  cidr_block              = "10.0.144.0/20"
+  availability_zone       = "us-west-2b"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "tetsuzai-private-subnet-us-west-2b"
+    Tier = "private"
+  }
+}

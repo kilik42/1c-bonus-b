@@ -4,6 +4,7 @@ variable "domain_name" {
   default     = "tetsuzai-kube.com"
 }
 
+
 variable "app_subdomain" {
   description = "Subdomain for the application endpoint"
   type        = string
@@ -65,14 +66,47 @@ variable "alb_access_logs_prefix" {
 }
 
 
-variable "private_subnet_id" {
-  default = "subnet-06894d8fa681dab3d"
-}
+# variable "private_subnet_id" {
+#   default = "subnet-06894d8fa681dab3d"
+# }
 
-variable "app_sg_id" {
-  default =  "sg-039e85c2905b2f3ad"
+# variable "app_sg_id" {
+#   default =  "sg-039e85c2905b2f3ad"
 
-}
+# }
 variable "ssm_instance_profile" {
   default = "AWSCloud9SSMInstanceProfile"
 }
+
+##############################1c bonus E##############################
+variable "tetsuzai_waf_log_destination" {
+  description = "Choose ONE destination per WebACL: cloudwatch | s3 | firehose"
+  type        = string
+  default     = "cloudwatch"
+}
+
+variable "tetsuzai_waf_log_retention_days" {
+  description = "Retention for WAF CloudWatch log group."
+  type        = number
+  default     = 14
+}
+
+variable "enable_waf_sampled_requests_only" {
+  description = "If true, students can optionally filter/redact fields later."
+  type        = bool
+  default     = false
+}
+variable "tetsuzai_waf_arn" {
+  description = "ARN of the Tetsuzai Web ACL"
+  type        = string
+}
+
+# variable "public_subnet_id" {
+#   description = "Public subnet where NAT Gateway will be created"
+#   type        = string
+# }
+
+# variable "vpc_id" {
+#   description = "VPC ID for route table creation"
+#   type        = string
+# }
