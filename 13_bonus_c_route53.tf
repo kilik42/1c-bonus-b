@@ -91,16 +91,16 @@ resource "aws_acm_certificate_validation" "app_cert_validation" {
 
 # ALIAS record: app → ALB
 
-resource "aws_route53_record" "app_alias" {
-  zone_id = local.zone_id
-  name    = local.app_fqdn
-  type    = "A"
+# resource "aws_route53_record" "app_alias" {
+#   zone_id = local.zone_id
+#   name    = local.app_fqdn
+#   type    = "A"
 
-  alias {
-    name                   = aws_lb.app_alb.dns_name
-    zone_id                = aws_lb.app_alb.zone_id
-    evaluate_target_health = true
-  }
-}
+#   alias {
+#     name                   = aws_lb.app_alb.dns_name
+#     zone_id                = aws_lb.app_alb.zone_id
+#     evaluate_target_health = true
+#   }
+# }
 
 
