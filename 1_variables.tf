@@ -25,9 +25,9 @@ variable "aws_region" {
 #create a n new provider region ofr "us-east-2"
 variable "aws_region_east" {
   # alias      = "east-1"
-  description = "AWS region for resources in us-east-2"
+  description = "AWS region for resources in us-east-1"
   type        = string
-  default     = "us-east-2"
+  default     = "us-east-1"
 }
 
 variable "instance_type" {

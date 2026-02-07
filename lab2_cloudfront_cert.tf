@@ -1,8 +1,9 @@
 #Create CloudFront ACM cert (us‑east‑1)
 
 resource "aws_acm_certificate" "cloudfront_cert" {
-  provider          = aws.east
-  domain_name       = "www.tetsuzai.com"
+  provider = aws.east
+
+  domain_name       = "${var.app_subdomain}.${var.domain_name}"
   validation_method = "DNS"
 
   tags = {
@@ -12,29 +13,41 @@ resource "aws_acm_certificate" "cloudfront_cert" {
 
 #what this does is create an ACM certificate in the us‑east‑1 region specifically for CloudFront, because CloudFront requires certificates to be in that region
 # the certificate is for the domain www.tetsuzai.com and will be validated using DNS validation, which means we will need to create DNS records in Route 53 to prove ownership of the domain before the certificate can be issued
-data "aws_prefix_list" "cloudfront" {
-  name = "com.amazonaws.global.cloudfront.origin-facing"
-}
+# data "aws_prefix_list" "cloudfront" {
+#   provider = aws.east
+#   name     = "com.amazonaws.global.cloudfront.origin-facing"
+# }
+
+# resource "aws_security_group_rule" "allow_cloudfront_to_alb" {
+#   type              = "ingress"
+#   from_port         = var.app_port
+#   to_port           = var.app_port
+#   protocol          = "tcp"
+#   security_group_id = aws_security_group.alb_sg.id
+
+#   cidr_blocks = ["0.0.0.0/0"]
+# }
 
 # Add CloudFront prefix list SG rule to ALB security group
-resource "aws_security_group_rule" "allow_cloudfront_to_alb" {
-  type                     = "ingress"
-  from_port                = var.app_port
-  to_port                  = var.app_port
-  protocol                 = "tcp"
-  security_group_id        = local.ec2_sg_id
-  source_security_group_id = aws_security_group.cloudfront_sg.id 
-  prefix_list_ids   = [data.aws_prefix_list.cloudfront.id]
-  # the source_security_group_id references the CloudFront SG which allows traffic from CloudFront IP ranges
-  # this ensures that only traffic from CloudFront can reach the ALB on the application port
-  # the reference source security group will be created in the next step and will have rules to allow traffic from CloudFront IP ranges
-}
+# resource "aws_security_group_rule" "allow_cloudfront_to_alb" {
+#   type                     = "ingress"
+#   from_port                = var.app_port
+#   to_port                  = var.app_port
+#   protocol                 = "tcp"
+#   # security_group_id = aws_security_group.alb_sg.id
 
-resource "aws_security_group" "cloudfront_sg" {
-  name        = "cloudfront-allowed"
-  description = "Allows CloudFront IP ranges to reach ALB"
-  vpc_id      = data.aws_vpc.tetsuzai.id
-}
+#   # source_security_group_id = aws_security_group.cloudfront_sg.id 
+#   prefix_list_ids   = [data.aws_prefix_list.cloudfront.id]
+#   # the source_security_group_id references the CloudFront SG which allows traffic from CloudFront IP ranges
+#   # this ensures that only traffic from CloudFront can reach the ALB on the application port
+#   # the reference source security group will be created in the next step and will have rules to allow traffic from CloudFront IP ranges
+# }
+
+# resource "aws_security_group" "cloudfront_sg" {
+#   name        = "cloudfront-allowed"
+#   description = "Allows CloudFront IP ranges to reach ALB"
+#   vpc_id      = data.aws_vpc.tetsuzai.id
+# }
 
 #Create CloudFront‑scoped WAF
 # what this does is create a WAF web ACL that is scoped to CloudFront distributions
@@ -42,7 +55,9 @@ resource "aws_security_group" "cloudfront_sg" {
 resource "aws_wafv2_web_acl" "cloudfront_waf" {
   name        = "tetsuzai-cloudfront-waf"
   description = "WAF for CloudFront distribution"
-  scope       = "CLOUDFRONT"
+  provider = aws.east
+scope    = "CLOUDFRONT"
+
   default_action {
     allow {}
   }
@@ -68,7 +83,9 @@ resource "aws_cloudfront_distribution" "tetsuzai_cf" {
       http_port              = 80
       https_port             = 443
       origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1.2", "TLSv1.3"]
+      origin_ssl_protocols = ["TLSv1.2"]
+
+
     }
   }
 
@@ -77,7 +94,8 @@ resource "aws_cloudfront_distribution" "tetsuzai_cf" {
   comment             = "CloudFront distribution for Tetsuzai app"
   default_root_object = "index.html"
 
-  aliases = ["www.tetsuzai.com"]
+  aliases = ["app.tetsuzai-kube.com"]
+
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -106,9 +124,9 @@ resource "aws_cloudfront_distribution" "tetsuzai_cf" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = aws_acm_certificate.cloudfront_cert.arn
-    ssl_support_method             = "sni-only"
-    minimum_protocol_version       = "TLSv1.2_2021"
+    acm_certificate_arn      = aws_acm_certificate.cloudfront_cert.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   web_acl_id = aws_wafv2_web_acl.cloudfront_waf.arn
@@ -117,3 +135,9 @@ resource "aws_cloudfront_distribution" "tetsuzai_cf" {
     aws_acm_certificate_validation.app_cert_validation
   ]
 }
+# resource "aws_lb_target_group_attachment" "app" {
+#  target_group_arn = aws_lb_target_group.TG0_ASG01.arn
+
+#   target_id        = aws_instance.tetsuzai_app.id
+#   port             = 80
+# }

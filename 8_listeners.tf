@@ -47,7 +47,10 @@ resource "aws_lb_listener" "app_https_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.app_tg.arn
+    # target_group_arn = aws_lb_target_group.app_tg.arn
+   target_group_arn = aws_lb_target_group.app_tg.arn
+
+  
   }
 
   depends_on = [
@@ -63,7 +66,9 @@ resource "aws_lb_listener_rule" "require_secret_header" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.app_tg.arn
+   target_group_arn = aws_lb_target_group.app_tg.arn
+
+
   }
 
   condition {

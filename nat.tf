@@ -31,21 +31,26 @@
 #   subnet_id      = data.aws_subnet.private_b.id
 #   route_table_id = aws_route_table.private.id
 # }
-data "aws_nat_gateway" "existing" {
-  filter {
-    name   = "nat-gateway-id"
-    values = ["nat-061e6dd7305e8cec0"]
-  }
-}
+# data "aws_nat_gateway" "existing" {
+#   filter {
+#     name   = "nat-gateway-id"
+#     values = ["nat-061e6dd7305e8cec0"]
+#   }
+# }
 
-data "aws_route_table" "private" {
-  route_table_id = "rtb-0a61071beec420b8b"
-}
+# data "aws_route_table" "private" {
+#   route_table_id = "rtb-0a61071beec420b8b"
+# }
+# data "aws_route_table" "private" {
+#   route_table_id = "rtb-043abd5c8020b5deb"
+# }
 
 
-data "aws_internet_gateway" "main" {
-  filter {
-    name   = "internet-gateway-id"
-    values = ["igw-0a846390f4636a0b7"]
-  }
-}
+
+# data "aws_internet_gateway" "main" {
+#   filter {
+#     name   = "internet-gateway-id"
+#     values = ["igw-0a846390f4636a0b7"]
+#   }
+# }
+

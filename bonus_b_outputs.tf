@@ -20,6 +20,6 @@ output "app_dashboard_name" {
 output "public_subnet_ids" {
   value = [
     data.aws_subnet.public_a.id,
-    data.aws_subnet.public_b.id
+    aws_subnet.public_b.id
   ]
 }

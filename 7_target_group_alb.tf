@@ -53,6 +53,8 @@ resource "aws_lb" "app_alb" {
 # “Add my EC2 instance to the target group so the ALB can send it traffic.”
 resource "aws_lb_target_group_attachment" "app_tg_attachment" {
   target_group_arn = aws_lb_target_group.app_tg.arn
+
+
   target_id        = local.ec2_instance_id
   port             = var.app_port
 }
