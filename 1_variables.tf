@@ -22,6 +22,13 @@ variable "aws_region" {
   type        = string
   default     = "us-west-2"
 }
+#create a n new provider region ofr "us-east-2"
+variable "aws_region_east" {
+  # alias      = "east-1"
+  description = "AWS region for resources in us-east-2"
+  type        = string
+  default     = "us-east-2"
+}
 
 variable "instance_type" {
   description = "EC2 instance type for the application"

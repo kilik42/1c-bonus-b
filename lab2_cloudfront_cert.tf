@@ -1,0 +1,113 @@
+#Create CloudFront ACM cert (us‑east‑1)
+
+resource "aws_acm_certificate" "cloudfront_cert" {
+  provider          = aws.east
+  domain_name       = "www.tetsuzai.com"
+  validation_method = "DNS"
+
+  tags = {
+    Name = "tetsuzai-cloudfront-cert"
+  }
+}
+
+# Add CloudFront prefix list SG rule to ALB security group
+resource "aws_security_group_rule" "allow_cloudfront_to_alb" {
+  type                     = "ingress"
+  from_port                = var.app_port
+  to_port                  = var.app_port
+  protocol                 = "tcp"
+  security_group_id        = local.ec2_sg_id
+  source_security_group_id = aws_security_group.cloudfront_sg.id 
+  prefix_list_ids   = [data.aws_prefix_list.cloudfront.id]
+  # the source_security_group_id references the CloudFront SG which allows traffic from CloudFront IP ranges
+  # this ensures that only traffic from CloudFront can reach the ALB on the application port
+  # the reference source security group will be created in the next step and will have rules to allow traffic from CloudFront IP ranges
+}
+
+resource "aws_security_group" "cloudfront_sg" {
+  name        = "cloudfront-allowed"
+  description = "Allows CloudFront IP ranges to reach ALB"
+  vpc_id      = data.aws_vpc.tetsuzai.id
+}
+
+#Create CloudFront‑scoped WAF
+# what this does is create a WAF web ACL that is scoped to CloudFront distributions
+# this is important because CloudFront is a global service and WAF needs to be associated with it in a specific way
+resource "aws_wafv2_web_acl" "cloudfront_waf" {
+  name        = "tetsuzai-cloudfront-waf"
+  description = "WAF for CloudFront distribution"
+  scope       = "CLOUDFRONT"
+  default_action {
+    allow {}
+  }
+  visibility_config {
+    cloudwatch_metrics_enabled = true
+    metric_name                = "tetsuzai-cloudfront-waf"
+    sampled_requests_enabled   = true
+  }
+
+  tags = {
+    Name = "tetsuzai-cloudfront-waf"
+  }
+}
+
+
+# Create CloudFront distribution pointing to ALB
+resource "aws_cloudfront_distribution" "tetsuzai_cf" {
+  origin {
+    domain_name = aws_lb.app_alb.dns_name
+    origin_id   = "tetsuzai-alb-origin"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2", "TLSv1.3"]
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "CloudFront distribution for Tetsuzai app"
+  default_root_object = "index.html"
+
+  aliases = ["www.tetsuzai.com"]
+
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "tetsuzai-alb-origin"
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
+
+  price_class = "PriceClass_100"
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    acm_certificate_arn            = aws_acm_certificate.cloudfront_cert.arn
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.2_2021"
+  }
+
+  web_acl_id = aws_wafv2_web_acl.cloudfront_waf.arn
+
+  depends_on = [
+    aws_acm_certificate_validation.app_cert_validation
+  ]
+}
