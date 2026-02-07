@@ -10,6 +10,12 @@ resource "aws_acm_certificate" "cloudfront_cert" {
   }
 }
 
+#what this does is create an ACM certificate in the us‑east‑1 region specifically for CloudFront, because CloudFront requires certificates to be in that region
+# the certificate is for the domain www.tetsuzai.com and will be validated using DNS validation, which means we will need to create DNS records in Route 53 to prove ownership of the domain before the certificate can be issued
+data "aws_prefix_list" "cloudfront" {
+  name = "com.amazonaws.global.cloudfront.origin-facing"
+}
+
 # Add CloudFront prefix list SG rule to ALB security group
 resource "aws_security_group_rule" "allow_cloudfront_to_alb" {
   type                     = "ingress"

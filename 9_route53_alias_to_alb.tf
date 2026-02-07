@@ -46,3 +46,7 @@ resource "aws_route53_record" "app_alias" {
     evaluate_target_health = false
   }
 }
+data "aws_route53_zone" "app_zone" {
+  name         = var.domain_name
+  private_zone = false
+}
