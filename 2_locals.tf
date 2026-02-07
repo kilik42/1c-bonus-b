@@ -2,16 +2,31 @@
 #local values for existing Chewbacca infrastructure
 
 data "aws_vpc" "tetsuzai" {
-  id = "vpc-0b8869d887c22c27e"
+   id = "vpc-01ed1e5d17730684f"
+}
+data "aws_subnet" "public_a" {
+  id = "subnet-08954564465c7833c"
+}
+
+data "aws_subnet" "public_b" {
+  id = "subnet-0bc7fd6d701e7a52c"
+}
+data "aws_subnet" "private_a" {
+  id = "subnet-0e56c22cd6f5ae54e"
+}
+
+data "aws_subnet" "private_b" {
+  id = "subnet-0123a5c597beefed4"
 }
 
 locals {
   vpc_id = data.aws_vpc.tetsuzai.id
+  # vpc_id = aws_vpc.tetsuzai.id
 
   # public_subnets  = ["subnet-0b042ad35f85ea27", "subnet-03473bd995f5f8931"]
   public_subnets = [
-    aws_subnet.public_a.id,
-    aws_subnet.public_b.id
+    data.aws_subnet.public_a.id,
+    data.aws_subnet.public_b.id
   ]
   ec2_instance_id = aws_instance.tetsuzai_app.id
 
