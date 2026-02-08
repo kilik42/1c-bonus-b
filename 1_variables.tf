@@ -117,3 +117,11 @@ variable "tetsuzai_waf_arn" {
 #   description = "VPC ID for route table creation"
 #   type        = string
 # }
+
+
+# region for sau paulo
+# variable "aws_region_south" {
+#   description = "AWS region for resources in sa-east-1"
+#   type        = string
+#   default     = "sa-east-1"
+# }

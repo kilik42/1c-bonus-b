@@ -16,3 +16,12 @@ provider "aws" {
   alias  = "east"
   region = var.aws_region_east
 }
+# provider "aws" {
+#   alias  = "tokyo"
+#   region = "ap-northeast-1"
+# }
+
+# provider "aws" {
+#   alias  = "saopaulo"
+#   region = "sa-east-1"
+# }

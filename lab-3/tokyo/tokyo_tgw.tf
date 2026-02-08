@@ -11,6 +11,7 @@ resource "aws_ec2_transit_gateway" "tokyo_tgw" {
 
 # Create TGW attachment to VPC
 # this allows the TGW to route traffic to and from the VPC
+# Note: you can attach multiple VPCs to the same TGW, but for simplicity we'll just attach one VPC in this lab
 resource "aws_ec2_transit_gateway_vpc_attachment" "tokyo_attach" {
   transit_gateway_id = aws_ec2_transit_gateway.tokyo_tgw.id
   vpc_id             = aws_vpc.main.id
