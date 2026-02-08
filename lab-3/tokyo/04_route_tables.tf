@@ -1,3 +1,5 @@
+
+######################public route table for tokyo region##########################
 # build here the route table for tokyo region
 resource "aws_route_table" "tokyo_public_route_table" {
   provider = aws.tokyo
@@ -12,7 +14,7 @@ resource "aws_route" "tokyo_public_internet_route" {
   provider = aws.tokyo
   route_table_id         = aws_route_table.tokyo_public_route_table.id
   destination_cidr_block = "0.0.0.0/0"
-    gateway_id             = aws_internet_gateway.tokyo_igw.id      
+    gateway_id             = aws_internet_gateway.tokyo_internet_gateway.id      
 }
 
 # associate public subnets with public route table
@@ -29,7 +31,6 @@ resource "aws_route_table_association" "tokyo_public_subnet_2_association" {
 }
 
 
-# fix the following code to create a private route table and associate it with the private subnets in tokyo region
 # # create route table for Tokyo VPC
 # resource "aws_route_table" "private" {
 #   vpc_id = aws_vpc.main.id
@@ -48,7 +49,7 @@ resource "aws_route_table_association" "tokyo_public_subnet_2_association" {
 #   route_table_id = aws_route_table.private.id
 # }
 
-# fix this code above
+##########################private route table for tokyo region##########################
 #create private route table for tokyo region
 resource "aws_route_table" "tokyo_private_route_table" {
   provider = aws.tokyo
@@ -63,7 +64,7 @@ resource "aws_route" "tokyo_private_nat_route" {
   provider = aws.tokyo
   route_table_id         = aws_route_table.tokyo_private_route_table.id
   destination_cidr_block = "0.0.0.0/0"
-    nat_gateway_id         = aws_nat_gateway.tokyo_nat_gw.id
+    nat_gateway_id         = aws_nat_gateway.tokyo_nat_gateway.id
 }
 # associate private subnets with private route table
 resource "aws_route_table_association" "tokyo_private_subnet_1_association" {
