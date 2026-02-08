@@ -32,20 +32,20 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
-resource "aws_security_group_rule" "alb_to_ec2" {
-  type                     = "ingress"
-  from_port                = var.app_port
-  to_port                  = var.app_port
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.ec2_sg.id
-  source_security_group_id = aws_security_group.alb_sg.id
-}
+# resource "aws_security_group_rule" "alb_to_ec2" {
+#   type                     = "ingress"
+#   from_port                = var.app_port
+#   to_port                  = var.app_port
+#   protocol                 = "tcp"
+#   security_group_id        = aws_security_group.ec2_sg.id
+#   source_security_group_id = aws_security_group.alb_sg.id
+# }
 
-resource "aws_security_group_rule" "ec2_to_alb" {
-  type                     = "egress"
-  from_port                = var.app_port
-  to_port                  = var.app_port
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.ec2_sg.id
-  source_security_group_id = aws_security_group.alb_sg.id
-}
+# resource "aws_security_group_rule" "ec2_to_alb" {
+#   type                     = "egress"
+#   from_port                = var.app_port
+#   to_port                  = var.app_port
+#   protocol                 = "tcp"
+#   security_group_id        = aws_security_group.ec2_sg.id
+#   source_security_group_id = aws_security_group.alb_sg.id
+# }

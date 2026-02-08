@@ -7,6 +7,9 @@ terraform {
   }
 }
 
+# provider "aws" {
+#   region = "sa-east-1"
+# }
 provider "aws" {
-  region = "sa-east-1"
+  region = "ap-northeast-1"
 }
