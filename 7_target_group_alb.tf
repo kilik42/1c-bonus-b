@@ -55,6 +55,6 @@ resource "aws_lb_target_group_attachment" "app_tg_attachment" {
   target_group_arn = aws_lb_target_group.app_tg.arn
 
 
-  target_id        = local.ec2_instance_id
-  port             = var.app_port
+  target_id = local.ec2_instance_id
+  port      = var.app_port
 }

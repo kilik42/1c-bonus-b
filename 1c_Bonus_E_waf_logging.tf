@@ -67,7 +67,7 @@ resource "aws_iam_role" "tetsuzai_firehose_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Effect = "Allow"
+      Effect    = "Allow"
       Principal = { Service = "firehose.amazonaws.com" }
       Action    = "sts:AssumeRole"
     }]

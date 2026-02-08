@@ -21,10 +21,10 @@ resource "aws_security_group" "alb_sg" {
 
   # Allow outbound traffic to EC2 on app port
   egress {
-    from_port       = var.app_port
-    to_port         = var.app_port
-    protocol        = "tcp"
-    # security_groups = [local.ec2_sg_id]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {

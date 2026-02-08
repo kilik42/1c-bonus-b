@@ -30,7 +30,7 @@ resource "aws_route_table_association" "public_a" {
 
 
 resource "aws_eip" "nat" {
-  
+
 
   tags = {
     Name = "tetsuzai-nat-eip"

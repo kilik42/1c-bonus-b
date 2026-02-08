@@ -46,11 +46,11 @@ resource "aws_lb_listener" "app_https_listener" {
   certificate_arn   = aws_acm_certificate.app_cert.arn
 
   default_action {
-    type             = "forward"
+    type = "forward"
     # target_group_arn = aws_lb_target_group.app_tg.arn
-   target_group_arn = aws_lb_target_group.app_tg.arn
+    target_group_arn = aws_lb_target_group.app_tg.arn
 
-  
+
   }
 
   depends_on = [
@@ -66,7 +66,7 @@ resource "aws_lb_listener_rule" "require_secret_header" {
 
   action {
     type             = "forward"
-   target_group_arn = aws_lb_target_group.app_tg.arn
+    target_group_arn = aws_lb_target_group.app_tg.arn
 
 
   }
@@ -84,7 +84,7 @@ resource "aws_lb_listener_rule" "alb_block_missing_header" {
   listener_arn = aws_lb_listener.app_https_listener.arn
   priority     = 200
 
-# this part returns a 403 forbidden response if the header is missing or incorrect
+  # this part returns a 403 forbidden response if the header is missing or incorrect
   action {
     type = "fixed-response"
 
@@ -95,7 +95,7 @@ resource "aws_lb_listener_rule" "alb_block_missing_header" {
     }
   }
 
-# this part does not need a specific value, it just matches if the header is missing or incorrect
+  # this part does not need a specific value, it just matches if the header is missing or incorrect
   condition {
     http_header {
       http_header_name = "X-Secret-Header"

@@ -16,7 +16,7 @@ resource "aws_wafv2_web_acl" "app_waf" {
   name        = "tetsuzai-waf01"
   description = "Basic WAF for tetsuzai ALB"
 
-  scope = "REGIONAL"   # ✔ Correct for ALB
+  scope = "REGIONAL" # ✔ Correct for ALB
   # REMOVE provider = aws.east
 
   default_action {
@@ -29,7 +29,7 @@ resource "aws_wafv2_web_acl" "app_waf" {
     sampled_requests_enabled   = true
   }
 }
-      
+
 
 # Associate WAFv2 Web ACL with the ALB
 resource "aws_wafv2_web_acl_association" "app_waf_assoc" {

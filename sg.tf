@@ -8,9 +8,14 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = var.app_port
     to_port     = var.app_port
     protocol    = "tcp"
-    # security_groups = [
-    #   aws_security_group.alb_sg.id
-    # ]
+    security_groups = [
+      aws_security_group.alb_sg.id
+      # "sg-0747b62d9f7229a20"
+    ]
+    # security_groups  = ["sg-0747b62d9f7229a20"]
+    # cidr_blocks      = []
+    # ipv6_cidr_blocks = []
+    # prefix_list_ids  = []
   }
 
   egress {
@@ -19,4 +24,5 @@ resource "aws_security_group" "ec2_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
 }
