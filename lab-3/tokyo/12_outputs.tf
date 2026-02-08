@@ -13,3 +13,6 @@ output "tokyo_rds_endpoint" {
 output "tokyo_sp_peering_attachment_id" {
   value = aws_ec2_transit_gateway_peering_attachment.tokyo_to_sp.id
 }
+output "tokyo_rds_endpoint" {
+  value = aws_db_instance.tokyo_db_instance.endpoint
+}
