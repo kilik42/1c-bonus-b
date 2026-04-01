@@ -99,7 +99,7 @@ Configuration and validation steps → :contentReference[oaicite:1]{index=1}
 
 ---
 
-## Lab 3 – Multi-Region Terraform Infrastructure
+## Lab 3 – Multi-Region Terraform Infrastructure(still in development)
 
 - [Lab 3A](docs/lab_3/lab%203a.pdf)
 
