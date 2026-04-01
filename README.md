@@ -1,6 +1,6 @@
 # Armageddon Labs 2026
 
-A cloud infrastructure and distributed systems project demonstrating AWS deployment, networking, observability, and edge delivery using CloudFront and WAF.
+A cloud infrastructure and distributed systems project demonstrating AWS deployment, networking, observability, and edge delivery using CloudFront and WAF. My deliverables as far as visual evidence of task completion are highlighted/linked in each section below
 
 ---
 
