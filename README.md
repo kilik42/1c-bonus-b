@@ -4,7 +4,7 @@ This is my running log of everything I built for the Armageddon Labs project: EC
 
 ---
 
-## Deliverables
+## Deliverables (in the docs folder)
 
 ### 1A – EC2 + RDS Application
 
