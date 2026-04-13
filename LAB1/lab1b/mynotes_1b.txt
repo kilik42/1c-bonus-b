@@ -1,0 +1,9 @@
+Route53
+ 
+ALB
+  
+EC2 Flask app
+ 
+Secrets Manager + Parameter Store
+  
+RDS
