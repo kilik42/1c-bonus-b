@@ -1,0 +1,37 @@
+[
+  {
+    "check": "SSM parameter exists: /lab1-redone/db/endpoint",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "SSM parameter exists: /lab1-redone/db/port",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "SSM parameter exists: /lab1-redone/db/name",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "SNS topic exists",
+    "passed": true,
+    "details": "arn:aws:sns:us-west-2:129762072419:lab1-redone-ops-alerts"
+  },
+  {
+    "check": "SNS subscription confirmed",
+    "passed": true,
+    "details": "email -> marvinevins69@gmail.com"
+  },
+  {
+    "check": "CloudWatch alarm exists",
+    "passed": true,
+    "details": "lab1-redone-alb-unhealthy-hosts"
+  },
+  {
+    "check": "CloudWatch alarm state is readable",
+    "passed": true,
+    "details": "Current state: OK"
+  }
+]
