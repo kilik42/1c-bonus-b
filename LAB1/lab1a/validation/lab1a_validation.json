@@ -1,0 +1,42 @@
+[
+  {
+    "check": "EC2 instance is running",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "IAM instance profile attached",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "Secrets Manager secret exists",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "RDS is private",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "Home page reachable",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "/init endpoint works",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "/add endpoint works",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "check": "/list contains inserted note",
+    "passed": true,
+    "details": ""
+  }
+]

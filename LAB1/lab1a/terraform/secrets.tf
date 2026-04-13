@@ -3,10 +3,11 @@
 resource "random_password" "db_password" {
   length           = 20
   special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?" 
+  override_special = "!#$%&*()-_=+[]{}<>:?"
   # i am intentionally excluding some special chars that can cause issues in shell commands or URLs, since the app will use this password in a connection string. mgiht have been overcautious but better safe than sorry in a learning environment!
   #might have to come back and fix this later
 }
+
 
 # Secrets Manager container for the database credentials.
 # The app will read this at runtime using its EC2 IAM role.
@@ -18,6 +19,7 @@ resource "aws_secretsmanager_secret" "db_secret" {
     Name = "${local.project_name}-db-secret"
   })
 }
+
 
 # Actual secret value stored as JSON.
 # This matches the structure the Flask app expects when it calls Secrets Manager.

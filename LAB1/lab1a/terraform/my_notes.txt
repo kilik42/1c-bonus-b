@@ -1,0 +1,45 @@
+Route53 apex
+tetsuzai-kube.com
+   
+ALB
+   
+EC2 Flask app
+   
+Secrets Manager
+   
+RDS MySQL
+
+Networking
+    VPC
+    2 public subnets
+    1 private app subnet
+    2 private DB subnets
+    IGW
+    public route table
+Security
+    ALB SG
+    app SG
+    RDS SG
+Identity
+    IAM role
+    inline policy
+    instance profile
+Data
+    random password
+    Secrets Manager secret
+    secret version
+    DB subnet group
+    RDS instance
+Compute
+    Amazon Linux EC2 instance
+Ingress
+    ALB
+    target group
+    target group attachment
+    listener
+    Route53 alias record
+Outputs
+    app URL
+    ALB DNS
+    secret name
+    RDS endpoint
