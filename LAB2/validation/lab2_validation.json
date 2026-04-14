@@ -1,0 +1,22 @@
+[
+  {
+    "status": "PASS",
+    "message": "CloudFront distribution exists",
+    "details": "E2MZFGBZEFLSRE"
+  },
+  {
+    "status": "PASS",
+    "message": "ACM certificate exists",
+    "details": "arn:aws:acm:us-east-1:129762072419:certificate/63b51e92-f2a9-496f-abba-9be3cd570671"
+  },
+  {
+    "status": "PASS",
+    "message": "Route53 alias exists",
+    "details": "app.tetsuzai-kube.com."
+  },
+  {
+    "status": "PASS",
+    "message": "ALB exists",
+    "details": "arn:aws:elasticloadbalancing:us-west-2:129762072419:loadbalancer/app/lab1-redone-alb/2d2507feff869820"
+  }
+]
