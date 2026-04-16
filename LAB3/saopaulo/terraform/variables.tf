@@ -82,3 +82,10 @@ variable "primary_vpc_cidr" {
   type        = string
   default     = "10.10.0.0/16"
 }
+
+
+# The peering attachment ID created from the primary region side is needed in the secondary region to accept the peering request, so we declare a variable for it here to be populated from the primary region's outputs.
+variable "primary_peering_attachment_id" {
+  description = "Peering attachment ID created from the primary region side"
+  type        = string
+}

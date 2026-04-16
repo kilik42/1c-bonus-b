@@ -1,7 +1,4 @@
-variable "primary_peering_attachment_id" {
-  description = "Peering attachment ID created from the primary region side"
-  type        = string
-}
+
 
 
 # Accept the cross-region TGW peering attachment from the primary region.
