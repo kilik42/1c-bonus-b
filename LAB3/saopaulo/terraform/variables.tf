@@ -68,3 +68,9 @@ variable "instance_type" {
   type        = string
   default     = "t3.micro"
 }
+
+# The Transit Gateway ID for the logical primary region is needed in the secondary region to create the peering attachment, so we declare a variable for it here to be populated from the primary region's outputs.
+variable "primary_tgw_id" {
+  description = "Transit Gateway ID for the logical primary region"
+  type        = string
+}

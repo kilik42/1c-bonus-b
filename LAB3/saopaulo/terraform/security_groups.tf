@@ -2,7 +2,7 @@
 # This is the only internet-facing entry point in the secondary region.
 resource "aws_security_group" "alb_sg" {
   name        = "${local.project_name}-alb-sg"
-  description = "ALB security group for São Paulo ingress"
+  description = "ALB security group for Sao Paulo ingress"
   vpc_id      = aws_vpc.saopaulo_vpc.id
 
   ingress {
@@ -28,15 +28,15 @@ resource "aws_security_group" "alb_sg" {
   })
 }
 
-# Security group for the São Paulo application tier.
+# Security group for the Sao Paulo application tier.
 # Only the ALB should be able to reach the app directly.
 resource "aws_security_group" "app_sg" {
   name        = "${local.project_name}-app-sg"
-  description = "Application security group for São Paulo compute"
+  description = "Application security group for Sao Paulo compute"
   vpc_id      = aws_vpc.saopaulo_vpc.id
 
   ingress {
-    description     = "Allow app traffic from São Paulo ALB only"
+    description     = "Allow app traffic from Sao Paulo ALB only"
     from_port       = var.app_port
     to_port         = var.app_port
     protocol        = "tcp"

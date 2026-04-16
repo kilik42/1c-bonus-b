@@ -19,3 +19,10 @@ variable "primary_vpc_id" {
   description = "Existing primary VPC ID from LAB1/LAB2"
   type        = string
 }
+
+
+# The Transit Gateway ID for the São Paulo region is needed in the primary region to create the peering attachment, so we declare a variable for it here to be populated from the São Paulo side's outputs.
+variable "saopaulo_tgw_id" {
+  description = "Transit Gateway ID for the São Paulo region"
+  type        = string
+}
