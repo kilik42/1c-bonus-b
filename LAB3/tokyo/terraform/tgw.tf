@@ -22,11 +22,11 @@ resource "aws_ec2_transit_gateway" "lab3_tgw" {
 # Attach the primary VPC to the Transit Gateway.
 # This makes the primary/data-authority region reachable over the TGW backbone.
 resource "aws_ec2_transit_gateway_vpc_attachment" "primary_attachment" {
-  subnet_ids         = slice(data.aws_subnets.primary_vpc_subnets.ids, 0, 2)
-  transit_gateway_id = aws_ec2_transit_gateway.lab3_tgw.id
-  vpc_id             = var.primary_vpc_id
+  subnet_ids         = slice(data.aws_subnets.primary_vpc_subnets.ids, 0, 2) # Get the first two subnets for the attachment (one per AZ)
+  transit_gateway_id = aws_ec2_transit_gateway.lab3_tgw.id # Reference the TGW created above
+  vpc_id             = var.primary_vpc_id # Reference the primary VPC ID from variables
 
   tags = {
-    Name = "${var.project_name}-primary-attachment"
+    Name = "${var.project_name}-primary-attachment" # Name the attachment for clarity in the AWS console
   }
 }
