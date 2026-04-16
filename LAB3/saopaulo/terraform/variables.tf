@@ -74,3 +74,11 @@ variable "primary_tgw_id" {
   description = "Transit Gateway ID for the logical primary region"
   type        = string
 }
+
+
+# The TGW attachment ID for the primary VPC is needed in the secondary region to create the peering attachment, so we declare a variable for it here to be populated from the primary region's outputs.
+variable "primary_vpc_cidr" {
+  description = "CIDR for the logical primary VPC"
+  type        = string
+  default     = "10.10.0.0/16"
+}

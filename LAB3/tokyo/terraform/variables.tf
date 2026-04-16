@@ -21,8 +21,13 @@ variable "primary_vpc_id" {
 }
 
 
-# The Transit Gateway ID for the São Paulo region is needed in the primary region to create the peering attachment, so we declare a variable for it here to be populated from the São Paulo side's outputs.
+# The Transit Gateway ID for the Sao Paulo region is needed in the primary region to create the peering attachment, so we declare a variable for it here to be populated from the Sao Paulo side's outputs.
 variable "saopaulo_tgw_id" {
-  description = "Transit Gateway ID for the São Paulo region"
+  description = "Transit Gateway ID for the Sao Paulo region"
   type        = string
+}
+variable "saopaulo_vpc_cidr" {
+  description = "Sao Paulo VPC CIDR"
+  type        = string
+  default     = "10.30.0.0/16"
 }
