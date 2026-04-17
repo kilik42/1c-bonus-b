@@ -1,0 +1,57 @@
+[
+  {
+    "check": "LAB3A validator exists",
+    "passed": true,
+    "details": "C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\validation\\verify_lab3a.py"
+  },
+  {
+    "check": "LAB3A validation JSON exists",
+    "passed": true,
+    "details": "C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\validation\\lab3a_validation.json"
+  },
+  {
+    "check": "LAB3A terminal output exists",
+    "passed": true,
+    "details": "C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\validation\\validation_terminal_output.txt"
+  },
+  {
+    "check": "LAB3 architecture summary exists",
+    "passed": true,
+    "details": "C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\audit-pack\\00_architecture-summary.md"
+  },
+  {
+    "check": "LAB3 notes file exists",
+    "passed": true,
+    "details": "C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\docs\\lab3_notes.md"
+  },
+  {
+    "check": "Screenshot exists: 01_primary_tgw.png",
+    "passed": false,
+    "details": "Missing: C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\audit-pack\\01_primary_tgw.png"
+  },
+  {
+    "check": "Screenshot exists: 02_secondary_tgw.png",
+    "passed": false,
+    "details": "Missing: C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\audit-pack\\02_secondary_tgw.png"
+  },
+  {
+    "check": "Screenshot exists: 03_tgw_peering.png",
+    "passed": false,
+    "details": "Missing: C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\audit-pack\\03_tgw_peering.png"
+  },
+  {
+    "check": "Screenshot exists: 04_tokyo_route.png",
+    "passed": false,
+    "details": "Missing: C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\audit-pack\\04_tokyo_route.png"
+  },
+  {
+    "check": "Screenshot exists: 05_saopaulo_route.png",
+    "passed": false,
+    "details": "Missing: C:\\Users\\marvi\\Desktop\\armageddon_labs_2026\\LAB3\\audit-pack\\05_saopaulo_route.png"
+  },
+  {
+    "check": "All required LAB3 audit screenshots exist",
+    "passed": false,
+    "details": "0/5 present"
+  }
+]
