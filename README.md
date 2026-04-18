@@ -15,11 +15,11 @@ Instead of manual screenshots alone, I used Python scripts to validate the state
 
 ### Lab 1: Infrastructure and Security Validation
 * **Lab 1A (EC2/RDS Core):** Provisioning of a Python Notes App via EC2 and RDS MySQL, including ALB configuration and API endpoint validation.
-  * [View Lab 1A Evidence (Python results at end)](https://github.com/kilik42/armageddon_labs_2026/blob/refactor/lab-redesign/LABS_python%20evidence_pdfs/Lab_1_Redone/LAB_1A_Redone/lab1a_redone_deliverables_evidence.pdf)
+  * [View Lab 1A Evidence ](https://github.com/kilik42/armageddon_labs_2026/blob/refactor/lab-redesign/LABS_python%20evidence_pdfs/Lab_1_Redone/LAB_1A_Redone/lab1a_redone_deliverables_evidence.pdf)
 * **Lab 1B (Monitoring & SNS):** Implementation of CloudWatch monitoring agents and SNS alerting for automated health tracking and incident notification.
-  * [View Lab 1B Evidence (Python results at end)](https://github.com/kilik42/armageddon_labs_2026/blob/refactor/lab-redesign/LABS_python%20evidence_pdfs/Lab_1_Redone/LAB_1B_REDONE/LAB%201B%20Redone.pdf)
+  * [View Lab 1B Evidence ](https://github.com/kilik42/armageddon_labs_2026/blob/refactor/lab-redesign/LABS_python%20evidence_pdfs/Lab_1_Redone/LAB_1B_REDONE/LAB%201B%20Redone.pdf)
 * **Lab 1C (WAF Security):** Deployment of AWS WAF with managed rule groups for Layer 7 protection and SSM for secure management access.
-  * [View Lab 1C Evidence (Python results at end)](https://github.com/kilik42/armageddon_labs_2026/blob/refactor/lab-redesign/LABS_python%20evidence_pdfs/Lab_1_Redone/Lab_1C_Redone/Lab%201C%20redone.pdf)
+  * [View Lab 1C Evidence ](https://github.com/kilik42/armageddon_labs_2026/blob/refactor/lab-redesign/LABS_python%20evidence_pdfs/Lab_1_Redone/Lab_1C_Redone/Lab%201C%20redone.pdf)
 
 ### Lab 2: Edge Delivery and SSL Validation
 * **Lab 2 (CloudFront):** Implementation of CloudFront CDN with SSL/TLS and validated cache-routing logic for dynamic content.
